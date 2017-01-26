@@ -33,8 +33,10 @@ public class User extends BaseEntity {
         this.name = name;
     }
 
+    /**
+     * saveChanges saves all the changes to the User entity
+     */
     public void saveChanges() {
-        DatabaseReference db = getDataContext();
-        db.child(key.toString()).setValue(this);
+        this.saveChanges(key.toString(), this);
     }
 }
