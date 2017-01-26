@@ -12,14 +12,11 @@ import edu.uco.wsaunders.firebaserepotest.Entities.User;
 
 public class MainActivity extends AppCompatActivity {
     private Button addRecord;
-    private DatabaseReference db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        db = FirebaseDatabase.getInstance().getReference();
 
         addRecord = (Button)findViewById(R.id.addRecord);
         addRecord.setOnClickListener(new View.OnClickListener() {
@@ -28,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
                 User newUser = new User();
                 newUser.setName("Scott");
 
-                db.child(newUser.getKey()).setValue(newUser);
+                newUser.saveChanges();
+                //db.child(newUser.getKey()).setValue(newUser);
             }
         });
     }

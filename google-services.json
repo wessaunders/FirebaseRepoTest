@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "244651714934",
+    "firebase_url": "https://fir-repotest.firebaseio.com",
+    "project_id": "fir-repotest",
+    "storage_bucket": "fir-repotest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:244651714934:android:28f535c52e24bdfa",
+        "android_client_info": {
+          "package_name": "edu.uco.wsaunders.firebaserepotest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "244651714934-paqeq3ac879ba2bepq2d172kfbj93idp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyGgyRbHwZhzgxZ18JLCYDE53k1P0zdM0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
