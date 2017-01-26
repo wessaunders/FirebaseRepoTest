@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
                 newUser.setName("Scott");
 
                 newUser.saveChanges();
-                //db.child(newUser.getKey()).setValue(newUser);
             }
         });
     }
