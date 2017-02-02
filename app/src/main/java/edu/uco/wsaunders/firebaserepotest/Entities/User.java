@@ -1,6 +1,6 @@
 package edu.uco.wsaunders.firebaserepotest.Entities;
 
-import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.UUID;
@@ -10,19 +10,13 @@ import java.util.UUID;
  */
 
 @IgnoreExtraProperties
-public class User extends BaseEntity {
+public class User extends Entity {
     private String name;
-    private final UUID key;
 
     /**
      * Default constructor
      */
     public User() {
-        key = UUID.randomUUID();
-    }
-
-    public String getKey() {
-        return key.toString();
     }
 
     public String getName() {
@@ -33,10 +27,14 @@ public class User extends BaseEntity {
         this.name = name;
     }
 
+    @Exclude
+    public void setKey(UUID key) {
+        super.setKey(key);
+    }
     /**
      * saveChanges saves all the changes to the User entity
      */
-    public void saveChanges() {
+    /*public void saveChanges() {
         this.saveChanges(key.toString(), this);
-    }
+    }*/
 }
