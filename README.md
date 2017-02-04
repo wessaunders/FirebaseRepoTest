@@ -1,14 +1,14 @@
-### FirebaseRepoTest
+# FirebaseRepoTest
 This is a test project to provide abstractions/facades around Firebase operations in Android.
 
-#Disclaimer: This is a demo#
+######Disclaimer: This is a demo
 This is provided as an example, and as such it does not implement all of the firebase features that are available.  It is simply intended to be an example project.  
 And yes, the UI is terrible.  Again, demo project....
 
-##Authentication
+###Authentication
 Firebase authentication is implemented through a facade that wraps around the firebase authentication library.  The facade provides automatic setup and teardown of all associated authentication event handlers, so that all that is required for a developer is to simply declare the authentication facade and call the appropriate method.
 
-#Examples
+####Examples
 - Authentication using email address via regular firebase code
 * from the [https://github.com/firebase/quickstart-android] (firebase quickstart)
 This example essentially gets an instance of the databse, creates an AuthStateListener, creates an onCreate event handler for listening to the responses from the AuthStatelistener, and then has to add/remove the event handler as needed.
@@ -98,11 +98,11 @@ auth.logIn(email, password, new AuthCompleteListener() {
     }
 });
 ```
-##Database access
+###Database access
 Database access utilizes firebase's the built-in mechanism that automatically serializes/deserializes the relevant entities.
 The database abstraction implements a repository interface, which offers and consistent and greatly simplified syntax for firebase data access.
 
-#Examples
+####Examples
 - Adding a record
 - Removing a record
 - Finding a record
