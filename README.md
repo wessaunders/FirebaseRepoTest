@@ -107,7 +107,7 @@ The database abstraction implements a repository interface, which offers and con
 - Adding a record
   - Firebase
     ```
-    User newUser = new User();
+    private User newUser = new User();
     newUser.setName("Hello, World!");
 
     private DatabaseReference mDatabase;
@@ -116,10 +116,10 @@ The database abstraction implements a repository interface, which offers and con
     ```
   - Repository abstraction
     ```
-    User newUser = new User();
+    private User newUser = new User();
     newUser.setName("Hello, World!");
 
-    Users<User> usersRepository = usersRepository = new Users<>();
+    private Users<User> usersRepository = new Users<>();
     usersRepository.add(newUser);
   ```
   
@@ -137,7 +137,7 @@ The database abstraction implements a repository interface, which offers and con
     ```    
   - Repository abstraction
     ```
-    Users<User> usersRepository = usersRepository = new Users<>();
+    private Users<User> usersRepository = usersRepository = new Users<>();
     
     //assuming that user is the reference to the existing data
     usersRepository.remove(user);
@@ -161,7 +161,7 @@ The database abstraction implements a repository interface, which offers and con
   
     Though not explicity implemented in the demo, the repository interface provided for a remove method that accepts an ArrayList of records.  An example would look something like this:    
     ```
-    Users<User> usersRepository = usersRepository = new Users<>();
+    private Users<User> usersRepository = new Users<>();
     
     //assuming that users is the reference to the existing list of records to be removed
     usersRepository.remove(users);
@@ -203,16 +203,16 @@ The database abstraction implements a repository interface, which offers and con
   
     This is where the advantages of the repository really being to become apparent.  To find a record, all that is required is to define a reference to the repository and then call the .find method.  The find method accepts a list of fields to search on, a list of values to match up to those fields, and a QueryCompleteListener that includes the results from the query.
     ```
-        Users<User> usersRepository = new Users<>();
-        
-        usersRepository.find(Arrays.asList("name"), Arrays.asList("Justin Case"), new QueryCompleteListener<User>() {
-            @Override
-            public void onQueryComplete(ArrayList<User> entities) {
-                for (User entity : entities) {
-                    // ...
-                }
+    private Users<User> usersRepository = new Users<>();
+
+    usersRepository.find(Arrays.asList("name"), Arrays.asList("Justin Case"), new QueryCompleteListener<User>() {
+        @Override
+        public void onQueryComplete(ArrayList<User> entities) {
+            for (User entity : entities) {
+                // ...
             }
-        });    
+        }
+    });    
     ```
     
 - Finding a record and then doing something else with it
@@ -252,6 +252,8 @@ The database abstraction implements a repository interface, which offers and con
     
     *Note that this provides the ability to chain multiple searches together, and that each successive search will operate based on the results from the previous task.  Check out the findAndRemoveUser example in the RecordActivity class for more information.*
     ```
+    Users<User> usersRepository = new Users<>();
+            
     Task<ArrayList<User>> findUsersTask = usersRepository.find(Arrays.asList("name"), Arrays.asList("Justin Case"));
         findUsersTask.continueWith(new Continuation<ArrayList<User>, Task<ArrayList<User>>>() {
             @Override
