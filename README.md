@@ -166,7 +166,7 @@ The database abstraction implements a repository interface, which offers and con
     ```
     
 - Finding a record
-    Getting an existing record(s) in firebase requires getting a reference to the firebase database, defining a query, adding an event listener to the query, and then handling teh requl
+    Getting an existing record(s) in firebase requires getting a reference to the firebase database, defining a query, adding an event listener to the query, and then handling the results from the onDataChange method in the event listener
   - Firebase
     ```
     private DatabaseReference mDatabase;
@@ -183,11 +183,8 @@ The database abstraction implements a repository interface, which offers and con
     query.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            ArrayList<User> entities = new ArrayList<User>();
-
             for (DataSnapshot record : dataSnapshot.getChildren()) {
-                User user = record.getValue(User.class);
-                entities.add(user);
+                // ...
             }
         }
 
@@ -199,8 +196,9 @@ The database abstraction implements a repository interface, which offers and con
         });    
     ```
   - Repository abstraction
+    This is where the advantages of the repository really being to become apparent.  To find a record, all that is required is to define a reference to the repository and then call the .find method.  The find method accepts a list of fields to search on, a list of values to match up to those fields, and a QueryCompleteListener that includes the results from the query.
     ```
-        Users<User> usersRepository = usersRepository = new Users<>();
+        Users<User> usersRepository = new Users<>();
         
         usersRepository.find(Arrays.asList("name"), Arrays.asList("Justin Case"), new QueryCompleteListener<User>() {
             @Override
@@ -213,3 +211,52 @@ The database abstraction implements a repository interface, which offers and con
     ```
     
 - Finding a record and then doing something else with it
+  - Firebase
+    Getting an existing record(s) in firebase requires getting a reference to the firebase database, defining a query, adding an event listener to the query, and then after performing the second action after retrieving the results in the onDataChange method in the event listener
+    ```
+    private DatabaseReference mDatabase;
+    mDatabase = FirebaseDatabase.getInstance().getReference("name");
+    
+    //Could also get the database child reference by explicity specifying .child after the reference declaration
+    //This is functionally equivalent to the shortcut above
+    //mDatabase = FirebaseDatabase.getInstance().getReference().child("name");
+  
+    //Define the database query
+    Query query = dataContext.orderByChild("name").equalTo("Justin Case");
+    
+    //Add an event listener to the query
+    query.addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            for (DataSnapshot record : dataSnapshot.getChildren()) {
+                mDatabase.removeValue(record);
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            // Oh no, getting User failed, log a message
+            // Log.w(LOG, "query cancelled", databaseError.toException());
+        }
+    });    
+    ```  
+  - Repository abstraction
+    The repository abstraction exposes a find method that can return a task, which can be chained using the methods from [https://developers.google.com/android/reference/com/google/android/gms/tasks/package-summary] (Google's Task API).  
+    
+    *Note that this provides the ability to chain multiple searches together, and that each successive search will operate based on the results from the previous task.*
+    ```
+    Task<ArrayList<User>> findUsersTask = usersRepository.find(Arrays.asList("name"), Arrays.asList("Justin Case"));
+        findUsersTask.continueWith(new Continuation<ArrayList<User>, Task<ArrayList<User>>>() {
+            @Override
+            public Task<ArrayList<User>> then(@NonNull Task<ArrayList<User>> task) throws Exception {
+                TaskCompletionSource<ArrayList<User>> taskCompletionSource = new TaskCompletionSource<ArrayList<User>>();
+
+                ArrayList<User> entities = task.getResult();
+                for (User user : entities) {
+                    usersRepository.remove(user);
+                }
+
+                return taskCompletionSource.getTask();
+            }
+        });
+    ```
