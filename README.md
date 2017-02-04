@@ -1,9 +1,9 @@
 # FirebaseRepoTest
 This is a test project to provide abstractions/facades around Firebase operations in Android.
 
-*All of the examples of firebase code are from the excellent [https://github.com/firebase/quickstart-android] (Firebase Quickstart SDK).  If you haven't checked it out I highly encourage it.*
+*All of the examples of firebase code are based on the code samples from the excellent [https://github.com/firebase/quickstart-android] (Firebase Quickstart SDK).  If you haven't checked it out I highly encourage it.*
 
-######Disclaimer: This is a demo
+#####Disclaimer: This is a demo
 This is provided as an example, and as such it does not implement all of the firebase features that are available.  It is simply intended to be an example project.  
 And yes, the UI is terrible.  Again, demo project....
 
@@ -103,13 +103,45 @@ auth.logIn(email, password, new AuthCompleteListener() {
 ```
 ###Database access
 Database access utilizes firebase's the built-in mechanism that automatically serializes/deserializes the relevant entities.
-The database abstraction implements a repository interface, which offers and consistent and greatly simplified syntax for firebase data access.
+The database abstraction implements a repository interface, which offers and consistent and simplified syntax for firebase data access.
 
 ####Examples
 - Adding a record
   - Firebase
+    ```
+    User newUser = new User();
+    newUser.setName("Hello, World!");
+
+    private DatabaseReference mDatabase;
+    mDatabase = FirebaseDatabase.getInstance().getReference();
+    mDatabase.child("users").child(userId).setValue(newUser);
+    ```
   - Repository abstraction
+    ```
+    User newUser = new User();
+    newUser.setName("Hello, World!");
+
+    Users<User> usersRepository = usersRepository = new Users<>();
+    usersRepository.add(newUser);
+  ```
   
 - Removing a record
+    The remove examples assume that the reference to the correct data to be removed has already been obtained.  An example of removing without an existing reference to the data is provided under the "Finding a record and then doing something else with it" example
+  - Firebase
+    ```
+    private DatabaseReference mDatabase;
+    mDatabase = FirebaseDatabase.getInstance().getReference();
+    
+    //assuming that user is the reference to the existing data
+    mDatabase.child("users").removeValue(user);
+    ```    
+  - Repository abstraction
+    ```
+    Users<User> usersRepository = usersRepository = new Users<>();
+    
+    //assuming that user is the reference to the existing data
+    usersRepository.remove(user);
+    ```
+    
 - Finding a record
 - Finding a record and then doing something else with it
