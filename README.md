@@ -7,8 +7,8 @@ This is a test project to provide abstractions/facades around Firebase operation
 Firebase authentication is implemented through a facade that wraps around the firebase authentication library.  The facade provides automatic setup and teardown of all associated authentication event handlers, so that all that is required for a developer is to simply declare the authentication facade and call the appropriate method.
 
 ####Examples
-- Authentication 
-  - **Firebase**
+- **Authentication**
+  - Firebase
   
     This is an example of using email address to sign in with regular firebase code.  The example essentially gets an instance of the       databse, creates an AuthStateListener, creates an onCreate event handler for listening to the responses from the AuthStatelistener,     and then has to add/remove the event handler as needed.
     Then after all the setup, it signs in with the provided credentials by calling signInWithEmailAndPassword.
@@ -76,7 +76,7 @@ Firebase authentication is implemented through a facade that wraps around the fi
                 }
             });
     ```
-  - **Abstraction**
+  - Abstraction
   
     This example demonstrates using firebase authentication using email address via the firebase authentication facade. Simply create the abstraction and call the logIn method.  The logIn method requires an email, password, and an instance of an AuthCompleteListener which will contain the results of the authentication, and if successful, a reference to the FirebaseUser that was logged in.
 
@@ -124,7 +124,7 @@ The database abstraction implements a repository interface, which offers and con
     usersRepository.add(newUser);
   ```
   
-- Removing a record
+- **Removing a record**
 
     The remove examples assume that the reference to the correct data to be removed has already been obtained.  An example of removing without an existing reference to the data is provided under the "Finding a record and then doing something else with it" example
     
@@ -144,7 +144,7 @@ The database abstraction implements a repository interface, which offers and con
     usersRepository.remove(user);
     ```
     
-- Remove multiple records
+- **Remove multiple records**
   - Firebase
   
     Removing multiple records with the regular firebase code is basically the same as removing a single record, just iterate over the list of records to be removed.    
@@ -168,7 +168,7 @@ The database abstraction implements a repository interface, which offers and con
     usersRepository.remove(users);
     ```
     
-- Finding a record
+- **Finding a record**
 
     Getting an existing record(s) in firebase requires getting a reference to the firebase database, defining a query, adding an event listener to the query, and then handling the results from the onDataChange method in the event listener
     
@@ -216,10 +216,10 @@ The database abstraction implements a repository interface, which offers and con
     });    
     ```
     
-- Finding a record and then doing something else with it
+- **Finding a record and then doing something else with it**
   - Firebase
   
-    Getting an existing record(s) in firebase requires getting a reference to the firebase database, defining a query, adding an event listener to the query, and then after performing the second action after retrieving the results in the onDataChange method in the event listener
+    Getting an existing record(s) in firebase requires getting a reference to the firebase database, defining a query, adding an event listener to the query, and then after performing the second action after retrieving the results in the onDataChange method in the event listener.  Performing multiple chained searches should be possible, but due to code complexity I did not attempt it (this is just a demo, after all...)
     ```
     private DatabaseReference mDatabase;
     mDatabase = FirebaseDatabase.getInstance().getReference("name");
