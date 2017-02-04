@@ -10,18 +10,6 @@ import java.util.UUID;
  * BaseEntity provides the application logic used by all entities for database access
  */
 public abstract class Entity {
-    /**
-     * saveChanges saves the changes from the specified value to
-     * a record identified by the provided key
-     * @param key identifies the record key
-     * @param value indicates the value of the record
-     * @param <T> identifies the type of the value object
-     */
-    /*protected <T> void saveChanges(String key, T value) {
-        DatabaseReference db = getDataContext();
-        db.child(key.toString()).setValue(value);
-    }*/
-
     private UUID key;
 
     /**
