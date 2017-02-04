@@ -9,6 +9,7 @@ Firebase authentication is implemented through a facade that wraps around the fi
 ####Examples
 - Authentication 
   - Firebase
+  
     This is an example of using email address to sign in with regular firebase code.  The example essentially gets an instance of the       databse, creates an AuthStateListener, creates an onCreate event handler for listening to the responses from the AuthStatelistener,     and then has to add/remove the event handler as needed.
     Then after all the setup, it signs in with the provided credentials by calling signInWithEmailAndPassword.
     ```
