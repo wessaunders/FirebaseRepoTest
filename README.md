@@ -3,10 +3,6 @@ This is a test project to provide abstractions/facades around Firebase operation
 
 *All of the examples of firebase code are based on the code samples from the excellent [https://github.com/firebase/quickstart-android] (Firebase Quickstart SDK).  If you haven't checked it out I highly encourage it.*
 
-#####Disclaimer: This is a demo
-This is provided as an example, and as such it does not implement all of the firebase features that are available.  It is simply intended to be an example project.  
-And yes, the UI is terrible.  Again, demo project....
-
 ###Authentication
 Firebase authentication is implemented through a facade that wraps around the firebase authentication library.  The facade provides automatic setup and teardown of all associated authentication event handlers, so that all that is required for a developer is to simply declare the authentication facade and call the appropriate method.
 
@@ -260,3 +256,9 @@ The database abstraction implements a repository interface, which offers and con
             }
         });
     ```
+
+#####Disclaimer: This is a demo
+This is provided as an example, and as such it does not implement all of the firebase features that are available.  It is simply intended to be an example project.  Also, if there is a better way to do some of these operations in firebase, I'd love to hear about it - any and all constructive comments are welcome!
+
+And yes, the UI is terrible.  Again, demo project....
+
