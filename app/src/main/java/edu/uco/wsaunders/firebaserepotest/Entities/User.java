@@ -31,10 +31,4 @@ public class User extends Entity {
     public void setKey(UUID key) {
         super.setKey(key);
     }
-    /**
-     * saveChanges saves all the changes to the User entity
-     */
-    /*public void saveChanges() {
-        this.saveChanges(key.toString(), this);
-    }*/
 }

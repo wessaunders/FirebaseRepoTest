@@ -2,12 +2,9 @@ package edu.uco.wsaunders.firebaserepotest.Entities;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
@@ -19,11 +16,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executor;
 
 import edu.uco.wsaunders.firebaserepotest.Interfaces.QueryCompleteListener;
 import edu.uco.wsaunders.firebaserepotest.Interfaces.Repository;
@@ -106,6 +100,7 @@ public class Users<T extends Entity> implements Repository<User> {
      * @param searchValues indicates the searchvalues to search for
      * @return Task containing the results of the find that can be chained to other tasks
      */
+    @Override
     public Task<ArrayList<User>> find(List<String> searchFields, List<String> searchValues) {
         final List<String> searchFieldsReference = searchFields;
         final List<String> searchValuesReference = searchValues;
@@ -160,7 +155,7 @@ public class Users<T extends Entity> implements Repository<User> {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Getting User failed, log a message
-//                Log.w("Users", "Users.find:onCancelled", databaseError.toException());
+                Log.w("Users", "Users.find:onCancelled", databaseError.toException());
             }
         });
     }

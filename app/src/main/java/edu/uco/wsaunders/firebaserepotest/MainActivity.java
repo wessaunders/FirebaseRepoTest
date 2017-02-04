@@ -52,30 +52,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 auth.logIn(
-                        userName.getText().toString(),
-                        password.getText().toString(),
-                        new AuthCompleteListener() {
-                            @Override
-                            public void onAuthCompleted(boolean isSuccessful, FirebaseUser user) {
-                               Log.d("MAIN", String.valueOf(isSuccessful));
+                    userName.getText().toString(),
+                    password.getText().toString(),
+                    new AuthCompleteListener() {
+                        @Override
+                        public void onAuthCompleted(boolean isSuccessful, FirebaseUser user) {
+                           Log.d("MAIN", String.valueOf(isSuccessful));
 
-                                if (isSuccessful) {
-                                    Toast.makeText(getApplicationContext(), user.getEmail() + " was logged in successfully.", Toast.LENGTH_LONG).show();
-                                } else {
-                                    Toast.makeText(getApplicationContext(), "Unable to log in.", Toast.LENGTH_LONG).show();
-                                }
+                            if (isSuccessful) {
+                                Toast.makeText(getApplicationContext(), user.getEmail() + " was logged in successfully.", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Unable to log in.", Toast.LENGTH_LONG).show();
                             }
-                        });
+                        }
+                    });
             }
         });
 
         createUserButton.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-                                                    Intent createUserIntent = new Intent(getApplicationContext(), CreateUserActivity.class);
-                                                    startActivity(createUserIntent);
-                                                }
-                                            });
+            @Override
+            public void onClick(View v) {
+                Intent createUserIntent = new Intent(getApplicationContext(), CreateUserActivity.class);
+                startActivity(createUserIntent);
+            }
+        });
 
         recordsButton.setOnClickListener(new View.OnClickListener() {
             @Override

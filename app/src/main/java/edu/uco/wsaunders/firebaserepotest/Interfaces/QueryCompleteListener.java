@@ -11,5 +11,5 @@ import edu.uco.wsaunders.firebaserepotest.Entities.Entity;
  */
 
 public interface QueryCompleteListener<T extends Entity> extends EventListener {
-    public void onQueryComplete(ArrayList<T> entities);
+    void onQueryComplete(ArrayList<T> entities);
 }
