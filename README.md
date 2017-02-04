@@ -77,6 +77,7 @@ Firebase authentication is implemented through a facade that wraps around the fi
             });
     ```
   - Abstraction
+  
     This example demonstrates using firebase authentication using email address via the firebase authentication facade. Simply create the abstraction and call the logIn method.  The logIn method requires an email, password, and an instance of an AuthCompleteListener which will contain the results of the authentication, and if successful, a reference to the FirebaseUser that was logged in.
 
     Adding/removing of the firebase event handlers is automatically taken care of.
@@ -123,7 +124,9 @@ The database abstraction implements a repository interface, which offers and con
   ```
   
 - Removing a record
+
     The remove examples assume that the reference to the correct data to be removed has already been obtained.  An example of removing without an existing reference to the data is provided under the "Finding a record and then doing something else with it" example
+    
   - Firebase
     ```
     private DatabaseReference mDatabase;
@@ -142,7 +145,8 @@ The database abstraction implements a repository interface, which offers and con
     
 - Remove multiple records
   - Firebase
-    Removing multiple records with the regular firebase code is basically the same as removing a single record, just iterate over the list of records to be removed.
+  
+    Removing multiple records with the regular firebase code is basically the same as removing a single record, just iterate over the list of records to be removed.    
     ```
     private DatabaseReference mDatabase;
     mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -154,7 +158,8 @@ The database abstraction implements a repository interface, which offers and con
     }
     ```
   - Repository abstraction
-    Though not explicity implemented in the demo, the repository interface provided for a remove method that accepts an ArrayList of records.  An example would look something like this:
+  
+    Though not explicity implemented in the demo, the repository interface provided for a remove method that accepts an ArrayList of records.  An example would look something like this:    
     ```
     Users<User> usersRepository = usersRepository = new Users<>();
     
@@ -163,7 +168,9 @@ The database abstraction implements a repository interface, which offers and con
     ```
     
 - Finding a record
+
     Getting an existing record(s) in firebase requires getting a reference to the firebase database, defining a query, adding an event listener to the query, and then handling the results from the onDataChange method in the event listener
+    
   - Firebase
     ```
     private DatabaseReference mDatabase;
@@ -193,6 +200,7 @@ The database abstraction implements a repository interface, which offers and con
         });    
     ```
   - Repository abstraction
+  
     This is where the advantages of the repository really being to become apparent.  To find a record, all that is required is to define a reference to the repository and then call the .find method.  The find method accepts a list of fields to search on, a list of values to match up to those fields, and a QueryCompleteListener that includes the results from the query.
     ```
         Users<User> usersRepository = new Users<>();
@@ -209,6 +217,7 @@ The database abstraction implements a repository interface, which offers and con
     
 - Finding a record and then doing something else with it
   - Firebase
+  
     Getting an existing record(s) in firebase requires getting a reference to the firebase database, defining a query, adding an event listener to the query, and then after performing the second action after retrieving the results in the onDataChange method in the event listener
     ```
     private DatabaseReference mDatabase;
@@ -238,9 +247,10 @@ The database abstraction implements a repository interface, which offers and con
     });    
     ```  
   - Repository abstraction
+  
     The repository abstraction exposes a find method that can return a task, which can be chained using the methods from [https://developers.google.com/android/reference/com/google/android/gms/tasks/package-summary] (Google's Task API).  
     
-    *Note that this provides the ability to chain multiple searches together, and that each successive search will operate based on the results from the previous task.*
+    *Note that this provides the ability to chain multiple searches together, and that each successive search will operate based on the results from the previous task.  Check out the findAndRemoveUser example in the RecordActivity class for more information.*
     ```
     Task<ArrayList<User>> findUsersTask = usersRepository.find(Arrays.asList("name"), Arrays.asList("Justin Case"));
         findUsersTask.continueWith(new Continuation<ArrayList<User>, Task<ArrayList<User>>>() {
@@ -259,6 +269,7 @@ The database abstraction implements a repository interface, which offers and con
     ```
 
 #####Disclaimer: This is a demo
+
 This is provided as an example, and as such it does not implement all of the firebase features that are available.  It is simply intended to be an example project.  Also, if there is a better way to do some of these operations in firebase, I'd love to hear about it - any and all constructive comments are welcome!
 
 And yes, the UI is terrible.  Again, demo project....
