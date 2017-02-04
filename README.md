@@ -166,4 +166,50 @@ The database abstraction implements a repository interface, which offers and con
     ```
     
 - Finding a record
+    Getting an existing record(s) in firebase requires getting a reference to the firebase database, defining a query, adding an event listener to the query, and then handling teh requl
+  - Firebase
+    ```
+    private DatabaseReference mDatabase;
+    mDatabase = FirebaseDatabase.getInstance().getReference("name");
+    
+    //Could also get the database child reference by explicity specifying .child after the reference declaration
+    //This is functionally equivalent to the shortcut above
+    //mDatabase = FirebaseDatabase.getInstance().getReference().child("name");
+  
+    //Define the database query
+    Query query = dataContext.orderByChild("name").equalTo("Justin Case");
+    
+    //Add an event listener to the query
+    query.addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            ArrayList<User> entities = new ArrayList<User>();
+
+            for (DataSnapshot record : dataSnapshot.getChildren()) {
+                User user = record.getValue(User.class);
+                entities.add(user);
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            // Oh no, getting User failed, log a message
+            // Log.w(LOG, "query cancelled", databaseError.toException());
+            }
+        });    
+    ```
+  - Repository abstraction
+    ```
+        Users<User> usersRepository = usersRepository = new Users<>();
+        
+        usersRepository.find(Arrays.asList("name"), Arrays.asList("Justin Case"), new QueryCompleteListener<User>() {
+            @Override
+            public void onQueryComplete(ArrayList<User> entities) {
+                for (User entity : entities) {
+                    // ...
+                }
+            }
+        });    
+    ```
+    
 - Finding a record and then doing something else with it
