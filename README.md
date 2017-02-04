@@ -2,6 +2,7 @@
 This is a test project to provide abstractions/facades around Firebase operations in Android.
 
 **Disclaimer: This is a demo**
+
 This is provided as an example, and as such it does not implement all of the firebase features that are available.  It is simply intended to be an example project.  
 And yes, the UI is terrible.  Again, demo project....
 
