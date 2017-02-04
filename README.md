@@ -1,5 +1,5 @@
 ### FirebaseRepoTest
-This is a test project to provide abstractions/facades around Firebase operations.
+This is a test project to provide abstractions/facades around Firebase operations in Android.
 
 **Disclaimer: This is a demo**
 This is provided as an example, and as such it does not implement all of the firebase features that are available.  It is simply intended to be an example project.  
@@ -10,6 +10,72 @@ Firebase authentication is implemented through a facade that wraps around the fi
 
 #Examples
 - Authentication using email address via regular firebase code
+* from the [https://github.com/firebase/quickstart-android] (firebase quickstart)
+This example essentially gets an instance of the databse, creates an AuthStateListener, creates an onCreate event handler for listening to the responses from the AuthStatelistener, and then has to add/remove the event handler as needed.
+Then after all the setup, it creates a new account by calling createUserWithEmailAndPassword
+'''
+private FirebaseAuth mAuth;
+private FirebaseAuth.AuthStateListener mAuthListener;
+
+//Get an instance of the database
+mAuth = FirebaseAuth.getInstance();
+
+//Declare the onCreate event handler
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    // ...
+    mAuthListener = new FirebaseAuth.AuthStateListener() {
+        @Override
+        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            if (user != null) {
+                // User is signed in
+                Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+            } else {
+                // User is signed out
+                Log.d(TAG, "onAuthStateChanged:signed_out");
+            }
+            // ...
+        }
+    };
+    // ...
+}
+
+//Add the auth state listener when the activity is started
+@Override
+public void onStart() {
+    super.onStart();
+    mAuth.addAuthStateListener(mAuthListener);
+}
+
+//Remove the auth state listener when the activity is stopped
+@Override
+public void onStop() {
+    super.onStop();
+    if (mAuthListener != null) {
+        mAuth.removeAuthStateListener(mAuthListener);
+    }
+}
+
+//Finally, create a new account
+mAuth.createUserWithEmailAndPassword(email, password)
+        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+
+                // If sign in fails, display a message to the user. If sign in succeeds
+                // the auth state listener will be notified and logic to handle the
+                // signed in user can be handled in the listener.
+                if (!task.isSuccessful()) {
+                    Toast.makeText(EmailPasswordActivity.this, R.string.auth_failed,
+                            Toast.LENGTH_SHORT).show();
+                }
+
+                // ...
+            }
+        });
+'''
 - Authentication using email address via abstraction
 
 ##Database access
