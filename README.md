@@ -8,7 +8,7 @@ Firebase authentication is implemented through a facade that wraps around the fi
 
 ####Examples
 - Authentication 
-  - Firebase
+  - **Firebase**
   
     This is an example of using email address to sign in with regular firebase code.  The example essentially gets an instance of the       databse, creates an AuthStateListener, creates an onCreate event handler for listening to the responses from the AuthStatelistener,     and then has to add/remove the event handler as needed.
     Then after all the setup, it signs in with the provided credentials by calling signInWithEmailAndPassword.
@@ -76,7 +76,7 @@ Firebase authentication is implemented through a facade that wraps around the fi
                 }
             });
     ```
-  - Abstraction
+  - **Abstraction**
   
     This example demonstrates using firebase authentication using email address via the firebase authentication facade. Simply create the abstraction and call the logIn method.  The logIn method requires an email, password, and an instance of an AuthCompleteListener which will contain the results of the authentication, and if successful, a reference to the FirebaseUser that was logged in.
 
@@ -99,12 +99,13 @@ Firebase authentication is implemented through a facade that wraps around the fi
         }
     });
     ```
+    
 ###Database access
 Database access utilizes firebase's the built-in mechanism that automatically serializes/deserializes the relevant entities.
 The database abstraction implements a repository interface, which offers and consistent and simplified syntax for firebase data access.
 
 ####Examples
-- Adding a record
+- **Adding a record**
   - Firebase
     ```
     private User newUser = new User();
