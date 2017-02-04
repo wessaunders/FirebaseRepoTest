@@ -13,7 +13,7 @@ Firebase authentication is implemented through a facade that wraps around the fi
 * from the [https://github.com/firebase/quickstart-android] (firebase quickstart)
 This example essentially gets an instance of the databse, creates an AuthStateListener, creates an onCreate event handler for listening to the responses from the AuthStatelistener, and then has to add/remove the event handler as needed.
 Then after all the setup, it creates a new account by calling createUserWithEmailAndPassword
-'''
+```
 private FirebaseAuth mAuth;
 private FirebaseAuth.AuthStateListener mAuthListener;
 
@@ -75,7 +75,8 @@ mAuth.createUserWithEmailAndPassword(email, password)
                 // ...
             }
         });
-'''
+```
+
 - Authentication using email address via abstraction
 
 ##Database access
