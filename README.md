@@ -12,7 +12,7 @@ Firebase authentication is implemented through a facade that wraps around the fi
 - Authentication using email address via regular firebase code
 * from the [https://github.com/firebase/quickstart-android] (firebase quickstart)
 This example essentially gets an instance of the databse, creates an AuthStateListener, creates an onCreate event handler for listening to the responses from the AuthStatelistener, and then has to add/remove the event handler as needed.
-Then after all the setup, it creates a new account by calling createUserWithEmailAndPassword
+Then after all the setup, it signs in with the provided credentials by calling signInWithEmailAndPassword
 ```
 private FirebaseAuth mAuth;
 private FirebaseAuth.AuthStateListener mAuthListener;
@@ -57,17 +57,18 @@ public void onStop() {
     }
 }
 
-//Finally, create a new account
-mAuth.createUserWithEmailAndPassword(email, password)
+//Finally, sign in
+mAuth.signInWithEmailAndPassword(email, password)
         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+                Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
 
                 // If sign in fails, display a message to the user. If sign in succeeds
                 // the auth state listener will be notified and logic to handle the
                 // signed in user can be handled in the listener.
                 if (!task.isSuccessful()) {
+                    Log.w(TAG, "signInWithEmail:failed", task.getException());
                     Toast.makeText(EmailPasswordActivity.this, R.string.auth_failed,
                             Toast.LENGTH_SHORT).show();
                 }
@@ -78,7 +79,25 @@ mAuth.createUserWithEmailAndPassword(email, password)
 ```
 
 - Authentication using email address via abstraction
+Simply create the abstraction and call the logIn method.  The logIn method requires an email, password, and an instance of an AuthCompleteListener which will contain the results of the authentication, and if successful, a reference to the FirebaseUser that was logged in.
+```
+private UserAuthenticationFacade auth;
 
+//Initialize the facade and pass the current activity context
+auth = new UserAuthenticationFacade(this);
+
+//Log in
+auth.logIn(email, password, new AuthCompleteListener() {
+    @Override
+    public void onAuthCompleted(boolean isSuccessful, FirebaseUser user) {
+        if (isSuccessful) {
+            Log.w(TAG, user.getEmail() + " was logged in successfully.");
+        } else {
+            Log.w(TAG, "Unable to log in.");
+        }
+    }
+});
+```
 ##Database access
 Database access utilizes firebase's the built-in mechanism that automatically serializes/deserializes the relevant entities.
 The database abstraction implements a repository interface, which offers and consistent and greatly simplified syntax for firebase data access.
