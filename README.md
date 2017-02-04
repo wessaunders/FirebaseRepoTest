@@ -80,6 +80,8 @@ mAuth.signInWithEmailAndPassword(email, password)
 
 - Authentication using email address via abstraction
 Simply create the abstraction and call the logIn method.  The logIn method requires an email, password, and an instance of an AuthCompleteListener which will contain the results of the authentication, and if successful, a reference to the FirebaseUser that was logged in.
+
+Adding/removing of the firebase event handlers is automatically taken care of.
 ```
 private UserAuthenticationFacade auth;
 
@@ -104,6 +106,9 @@ The database abstraction implements a repository interface, which offers and con
 
 ####Examples
 - Adding a record
+  - Firebase
+  - Repository abstraction
+  
 - Removing a record
 - Finding a record
 - Finding a record and then doing something else with it
