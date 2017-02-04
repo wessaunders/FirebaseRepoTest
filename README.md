@@ -1,6 +1,8 @@
 # FirebaseRepoTest
 This is a test project to provide abstractions/facades around Firebase operations in Android.
 
+**All of the examples of firebase code are from the excellent [https://github.com/firebase/quickstart-android] (Firebase Quickstart SDK)**
+
 ######Disclaimer: This is a demo
 This is provided as an example, and as such it does not implement all of the firebase features that are available.  It is simply intended to be an example project.  
 And yes, the UI is terrible.  Again, demo project....
@@ -10,7 +12,6 @@ Firebase authentication is implemented through a facade that wraps around the fi
 
 ####Examples
 - Authentication using email address via regular firebase code
-* from the [https://github.com/firebase/quickstart-android] (firebase quickstart)
 This example essentially gets an instance of the databse, creates an AuthStateListener, creates an onCreate event handler for listening to the responses from the AuthStatelistener, and then has to add/remove the event handler as needed.
 Then after all the setup, it signs in with the provided credentials by calling signInWithEmailAndPassword
 ```
