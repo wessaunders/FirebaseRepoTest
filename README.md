@@ -143,5 +143,27 @@ The database abstraction implements a repository interface, which offers and con
     usersRepository.remove(user);
     ```
     
+- Remove multiple records
+  - Firebase
+    Removing multiple records with the regular firebase code is basically the same as removing a single record, just iterate over the list of records to be removed.
+    ```
+    private DatabaseReference mDatabase;
+    mDatabase = FirebaseDatabase.getInstance().getReference();
+    
+    //assuming that users is the reference to the existing list of records to be removed
+    for (User user : users)
+    {
+        mDatabase.child("users").removeValue(user);
+    }
+    ```
+  - Repository abstraction
+    Though not explicity implemented in the demo, the repository interface provided for a remove method that accepts an ArrayList of records.  An example would look something like this:
+    ```
+    Users<User> usersRepository = usersRepository = new Users<>();
+    
+    //assuming that users is the reference to the existing list of records to be removed
+    usersRepository.remove(users);
+    ```
+    
 - Finding a record
 - Finding a record and then doing something else with it
