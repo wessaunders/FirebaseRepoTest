@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import edu.uco.wsaunders.firebaserepotest.Entities.User;
 import edu.uco.wsaunders.firebaserepotest.Entities.Users;
@@ -86,9 +87,9 @@ public class RecordActivity extends AppCompatActivity {
     /**
      * addUser adds a new user
      */
-    private void addUser(String search) {
+    private void addUser(String firstName) {
         User newUser = new User();
-        newUser.setName(search);
+        newUser.setFirstName(firstName);
         usersRepository.add(newUser);
     }
 
@@ -97,13 +98,13 @@ public class RecordActivity extends AppCompatActivity {
      */
     private void findUser(String search) {
         usersRepository.find(
-            Arrays.asList("name"),
-            Arrays.asList(search),
+            Arrays.asList("firstName"),
+            search,
                     new QueryCompleteListener<User>() {
                         @Override
                         public void onQueryComplete(ArrayList<User> entities) {
                             for (User entity : entities) {
-                                foundUser.setText(entity.getName());
+                                foundUser.setText(entity.getFirstName());
                                 findResult = entity;
                             }
                         }
@@ -116,8 +117,8 @@ public class RecordActivity extends AppCompatActivity {
      */
     private void removeUser(String search) {
         usersRepository.find(
-                Arrays.asList("name"),
-                Arrays.asList(search),
+                Arrays.asList("firstName"),
+                search,
                 new QueryCompleteListener<User>() {
                     @Override
                     public void onQueryComplete(ArrayList<User> entities) {
@@ -136,7 +137,7 @@ public class RecordActivity extends AppCompatActivity {
      * @param search
      */
     private void findAndRemoveUser(String search) {
-        Task<ArrayList<User>> findUsersTask = usersRepository.find(Arrays.asList("name"), Arrays.asList(search));
+        Task<ArrayList<User>> findUsersTask = usersRepository.find(Arrays.asList("firstName"), search);
         findUsersTask.continueWith(new Continuation<ArrayList<User>, Task<ArrayList<User>>>() {
             @Override
             public Task<ArrayList<User>> then(@NonNull Task<ArrayList<User>> task) throws Exception {
