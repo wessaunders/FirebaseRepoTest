@@ -10,13 +10,13 @@ import java.util.UUID;
  * BaseEntity provides the application logic used by all entities for database access
  */
 public abstract class Entity {
-    private UUID key;
+    private String key;
 
     /**
      * Default constructor
      */
     public Entity() {
-        key = UUID.randomUUID();
+        key = UUID.randomUUID().toString();
     }
 
     @Exclude
@@ -25,7 +25,7 @@ public abstract class Entity {
     }
 
     @Exclude
-    protected void setKey(UUID key) {
+    protected void setKey(String key) {
         this.key = key;
     }
 }
