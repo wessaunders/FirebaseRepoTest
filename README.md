@@ -1,7 +1,7 @@
 # FirebaseRepoTest
 This is a test project to provide abstractions/facades around Firebase operations in Android.
 
-*All of the examples of firebase code are based on the code samples from the excellent [https://github.com/firebase/quickstart-android] (Firebase Quickstart SDK).  If you haven't checked it out I highly encourage it.*
+*All of the examples of firebase code are based on the code samples from the [https://github.com/firebase/quickstart-android] (Firebase Quickstart SDK).*
 
 ###Authentication
 Firebase authentication is implemented through a facade that wraps around the firebase authentication library.  The facade provides automatic setup and teardown of all associated authentication event handlers, so that all that is required for a developer is to simply declare the authentication facade and call the appropriate method.
@@ -113,7 +113,7 @@ The database abstraction implements a repository interface, which offers and con
 
     private DatabaseReference mDatabase;
     mDatabase = FirebaseDatabase.getInstance().getReference();
-    mDatabase.child("users").child(userId).setValue(newUser);
+    mDatabase.child("User").child(userId).setValue(newUser);
     ```
   - Repository abstraction
     ```
@@ -123,7 +123,25 @@ The database abstraction implements a repository interface, which offers and con
     private Users<User> usersRepository = new Users<>();
     usersRepository.add(newUser);
   ```
-  
+
+- **Adding a record with child nodes**
+  - Firebase
+    ```
+    private User newUser = new User();
+    newUser.setName("Hello, World!");
+
+    private DatabaseReference mDatabase;
+    mDatabase = FirebaseDatabase.getInstance().getReference();
+    mDatabase.child("User").child("Administrator").child(userId).setValue(newUser);
+    ```
+  - Repository abstraction
+    ```
+    private User newUser = new User();
+    newUser.setName("Hello, World!");
+
+    private Users<User> usersRepository = new Users<>();
+    usersRepository.add(newUser, new String[] {"Administrator"});
+    ```
 - **Removing a record**
 
     The remove examples assume that the reference to the correct data to be removed has already been obtained.  An example of removing without an existing reference to the data is provided under the "Finding a record and then doing something else with it" example
